@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dinakar Satya — UI/UX Designer & Product Strategist</title>
+    <meta name="description" content="Dinakar Satya is a UI/UX designer crafting human-centered digital products with measurable impact." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink-50:#f6f7f9;--ink-100:#eceef2;--ink-200:#d5d9e2;--ink-300:#b0b7c6;
+        --ink-400:#848fa6;--ink-500:#65718c;--ink-600:#505a73;--ink-700:#42495d;
+        --ink-800:#393f4f;--ink-900:#0c0e14;--ink-950:#06070b;
+        --accent-400:#fb923c;--accent-500:#f97316;--accent-600:#ea580c;
+        --mint-400:#34d399;--mint-500:#10b981;
+      }
+      *{margin:0;padding:0;box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{
+        background:var(--ink-950);color:var(--ink-100);
+        font-family:'Inter',system-ui,sans-serif;
+        -webkit-font-smoothing:antialiased;overflow-x:hidden;
+      }
+      ::selection{background:rgba(249,115,22,.3);color:#fff}
+      ::-webkit-scrollbar{width:10px}
+      ::-webkit-scrollbar-track{background:var(--ink-950)}
+      ::-webkit-scrollbar-thumb{background:var(--ink-800);border-radius:999px}
+      ::-webkit-scrollbar-thumb:hover{background:var(--ink-600)}
+      .font-display{font-family:'Clash Display','Inter',sans-serif}
+      .font-mono{font-family:'JetBrains Mono',monospace}
+      .text-balance{text-wrap:balance}
+      .grain{background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")}
+      
+      /* animations */
+      @keyframes fadeUp{0%{opacity:0;transform:translateY(28px)}100%{opacity:1;transform:translateY(0)}}
+      @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+      @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      .animate-fade-up{animation:fadeUp .8s ease-out forwards}
+      .animate-fade-in{animation:fadeIn .6s ease-out forwards}
+      .animate-marquee{animation:marquee 40s linear infinite}
+
+      /* Waving Hand Animation */
+      @keyframes wave {
+        0% { transform: rotate( 0.0deg) }
+        10% { transform: rotate(14.0deg) }
+        20% { transform: rotate(-8.0deg) }
+        30% { transform: rotate(14.0deg) }
+        40% { transform: rotate(-4.0deg) }
+        50% { transform: rotate(10.0deg) }
+        60% { transform: rotate( 0.0deg) }
+        100% { transform: rotate( 0.0deg) }
+      }
+      .wave-hand {
+        display: inline-block;
+        animation: wave 2.5s infinite;
+        transform-origin: 70% 70%;
+      }
+
+      .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease-out,transform .7s ease-out}
+      .reveal.shown{opacity:1;transform:translateY(0)}
+
+      /* layout helpers */
+      .container{max-width:80rem;margin:0 auto;padding-left:1.5rem;padding-right:1.5rem}
+      @media(min-width:1024px){.container{padding-left:2.5rem;padding-right:2.5rem}}
+      .section{padding-top:7rem;padding-bottom:7rem}
+      .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-400)}
+      .eyebrow::before{content:"";height:1px;width:2rem;background:var(--accent-400)}
+      h2{font-family:'Clash Display','Inter',sans-serif;font-weight:600;letter-spacing:-.02em;font-size:2.25rem;line-height:1.1}
+      @media(min-width:640px){h2{font-size:3rem}}
+      .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.75rem 1.5rem;font-size:.875rem;font-weight:500;transition:all .3s;cursor:pointer;text-decoration:none}
+      .btn-primary{background:var(--accent-500);color:var(--ink-950);box-shadow:0 0 40px -8px rgba(249,115,22,.6)}
+      .btn-primary:hover{background:var(--accent-400)}
+      .btn-ghost{border:1px solid var(--ink-700);color:var(--ink-100)}
+      .btn-ghost:hover{border-color:var(--ink-500);background:var(--ink-900)}
+      .btn svg{transition:transform .3s}
+      .btn:hover svg{transform:translate(2px,-2px)}
+
+      /* nav */
+      .nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:all .5s}
+      .nav.scrolled{background:rgba(6,7,11,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(57,63,79,.6)}
+      .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;max-width:80rem;margin:0 auto}
+      @media(min-width:1024px){.nav-inner{padding:1rem 2.5rem}}
+      .logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:inherit}
+      .logo-mark{display:grid;place-items:center;height:2.25rem;width:2.25rem;border-radius:.75rem;background:var(--accent-500);font-family:'Clash Display';font-weight:700;color:var(--ink-950);transition:transform .5s}
+      .logo:hover .logo-mark{transform:rotate(12deg)}
+      .logo-text{font-family:'Clash Display';font-size:1.125rem;font-weight:600;letter-spacing:-.02em}
+      .nav-links{display:none;align-items:center;gap:2rem}
+      @media(min-width:768px){.nav-links{display:flex}}
+      .nav-links a{position:relative;font-size:.875rem;color:var(--ink-300);text-decoration:none;transition:color .2s}
+      .nav-links a:hover{color:#fff}
+      .nav-links a::after{content:"";position:absolute;bottom:-4px;left:0;height:1px;width:0;background:var(--accent-500);transition:width .3s}
+      .nav-links a:hover::after{width:100%}
+      .nav-cta{display:none}
+      @media(min-width:768px){.nav-cta{display:inline-flex}}
+      .menu-btn{display:grid;place-items:center;height:2.5rem;width:2.5rem;border-radius:.5rem;border:1px solid var(--ink-700);color:var(--ink-100);background:transparent;cursor:pointer}
+      @media(min-width:768px){.menu-btn{display:none}}
+      .mobile-menu{display:none;padding:0 1.5rem 1rem}
+      .mobile-menu.open{display:block}
+      .mobile-menu-inner{border:1px solid var(--ink-800);background:rgba(12,14,20,.95);border-radius:1rem;padding:1.5rem;backdrop-filter:blur(16px)}
+      .mobile-menu a{display:block;padding:.5rem 0;color:var(--ink-200);text-decoration:none}
+      .mobile-menu .btn{margin-top:.5rem;width:100%;justify-content:center}
+
+      /* scroll progress */
+      .progress{position:fixed;left:0;top:0;z-index:60;height:2px;width:100%}
+      .progress-bar{height:100%;background:linear-gradient(to right,var(--accent-400),var(--accent-600));width:0;transition:width .15s}
+
+      /* hero redesign */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+      }
+      .hero-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 15%;
+        position: absolute;
+        inset: 0;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%);
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 48rem;
+        padding: 0 1.5rem;
+      }
+      .hero-greeting {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      @media(min-width:640px){.hero-greeting{font-size: 2rem;}}
+      .hero-title {
+        font-family: 'Clash Display', 'Inter', sans-serif;
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -.03em;
+        font-size: 3.5rem;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+      @media(min-width:640px){.hero-title{font-size: 5rem;}}
+      .hero-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.125rem;
+        font-weight: 400;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+      @media(min-width:640px){.hero-subtitle{font-size: 1.25rem;}}
+      .hero-desc {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--ink-200);
+        margin: 0 auto;
+        max-width: 42rem;
+      }
+
+      /* marquee */
+      .marquee{border-top:1px solid rgba(57,63,79,.6);border-bottom:1px solid rgba(57,63,79,.6);background:rgba(12,14,20,.3);padding:1.5rem 0;overflow:hidden}
+      .marquee-track{display:flex;width:max-content;align-items:center;gap:3rem;animation:marquee 40s linear infinite}
+      .marquee-item{display:flex;align-items:center;gap:3rem}
+      .marquee-item span{font-family:'Clash Display';font-size:1.5rem;font-weight:500;color:var(--ink-500)}
+      .marquee-item svg{height:1rem;width:1rem;color:rgba(249,115,22,.6)}
+
+      /* work */
+      .work-head{display:flex;flex-direction:column;gap:1.5rem}
+      @media(min-width:640px){.work-head{flex-direction:row;align-items:flex-end;justify-content:space-between}}
+      .work-head p{max-width:24rem;font-size:.875rem;color:var(--ink-400)}
+      .work-grid{margin-top:4rem;display:grid;gap:1.5rem}
+      @media(min-width:1024px){.work-grid{grid-template-columns:repeat(12,1fr)}}
+      .work-list{@media(min-width:1024px){grid-column:span 5}}
+      .work-item{border-bottom:1px solid var(--ink-800);padding:1.5rem 0;text-align:left;cursor:pointer;transition:padding .3s;background:none;border-left:none;border-right:none;border-top:none;width:100%;color:inherit;font-family:inherit;text-decoration:none;display:block;}
+      .work-item.active{padding-left:1rem}
+      .work-item-row{display:flex;align-items:baseline;justify-content:space-between}
+      .work-item-id{font-family:'JetBrains Mono';font-size:.75rem;color:var(--ink-500)}
+      .work-item-name{font-family:'Clash Display';font-size:1.5rem;font-weight:500;margin-left:1rem;transition:color .2s}
+      .work-item:not(.active) .work-item-name{color:var(--ink-400)}
+      .work-item:not(.active):hover .work-item-name{color:var(--ink-200)}
+      .work-item.active .work-item-name{color:#fff}
+      .work-arrow{height:1.25rem;width:1.25rem;transition:all .3s;color:var(--accent-400)}
+      .work-item:not(.active) .work-arrow{opacity:0;transform:translateX(-.5rem)}
+      .work-detail{display:grid;transition:all .5s;margin-top:0}
+      .work-item:not(.active) .work-detail{grid-template-rows:0fr;opacity:0}
+      .work-item.active .work-detail{grid-template-rows:1fr;opacity:1;margin-top:.75rem}
+      .work-detail-inner{overflow:hidden}
+      .work-detail p{max-width:28rem;font-size:.875rem;color:var(--ink-400)}
+      .work-tags{margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.5rem}
+      .work-tag{border:1px solid var(--ink-700);padding:.25rem .75rem;border-radius:9999px;font-size:.75rem;color:var(--ink-300)}
+      .work-meta{margin-top:.5rem;font-size:.75rem;color:var(--ink-500)}
+      .work-preview{@media(min-width:1024px){grid-column:span 7}}
+      .work-preview-sticky{position:sticky;top:7rem}
+      .work-card{position:relative;overflow:hidden;border:1px solid var(--ink-800);border-radius:1.5rem}
+      .work-card-img{aspect-ratio:16/11;width:100%;object-fit:cover;display:block;animation:fadeIn .6s ease-out}
+      .work-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,7,11,.8),transparent)}
+      .work-card-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;display:flex;align-items:flex-end;justify-content:space-between}
+      .work-card-cat{font-family:'JetBrains Mono';font-size:.75rem;color:var(--ink-300)}
+      .work-card-name{margin-top:.25rem;font-family:'Clash Display';font-size:1.5rem;font-weight:600;color:#fff}
+      .work-card-year{background:rgba(6,7,11,.6);padding:.25rem .75rem;border-radius:9999px;font-family:'JetBrains Mono';font-size:.75rem;color:var(--ink-200);backdrop-filter:blur(8px)}
+
+      /* process */
+      .process-grid{margin-top:4rem;display:grid;gap:1.5rem}
+      @media(min-width:640px){.process-grid{grid-template-columns:repeat(2,1fr)}}
+      @media(min-width:1024px){.process-grid{grid-template-columns:repeat(4,1fr)}}
+      .process-card{position:relative;height:100%;overflow:hidden;border:1px solid var(--ink-800);background:rgba(12,14,20,.4);padding:1.5rem;border-radius:1rem;transition:all .5s}
+      .process-card:hover{border-color:rgba(249,115,22,.4);background:var(--ink-900)}
+      .process-num{position:absolute;right:-2rem;top:-2rem;font-family:'Clash Display';font-size:6rem;font-weight:700;color:rgba(57,63,79,.6);transition:color .5s}
+      .process-card:hover .process-num{color:rgba(249,115,22,.2)}
+      .process-icon{display:grid;place-items:center;height:3rem;width:3rem;border-radius:.75rem;background:var(--ink-800);color:var(--accent-400);transition:all .3s}
+      .process-card:hover .process-icon{background:var(--accent-500);color:var(--ink-950)}
+      .process-title{margin-top:1.25rem;font-family:'Clash Display';font-size:1.25rem;font-weight:600}
+      .process-desc{margin-top:.5rem;font-size:.875rem;line-height:1.6;color:var(--ink-400)}
+
+      /* experience */
+      .timeline{margin-top:4rem;position:relative}
+      .timeline-line{position:absolute;left:0;top:0;height:100%;width:1px;background:var(--ink-800)}
+      @media(min-width:768px){.timeline-line{left:50%}}
+      .timeline-item{position:relative;display:grid;gap:1.5rem;margin-bottom:3rem}
+      @media(min-width:768px){.timeline-item{grid-template-columns:1fr 1fr}}
+      .timeline-item:nth-child(even){direction:rtl}
+      .timeline-item:nth-child(even) .timeline-content{direction:ltr}
+      .timeline-content{border:1px solid var(--ink-800);background:rgba(12,14,20,.4);padding:1.5rem;border-radius:1rem;transition:border-color .2s}
+      .timeline-content:hover{border-color:var(--ink-600)}
+      .timeline-item:nth-child(odd) .timeline-content{@media(min-width:768px){margin-right:3rem}}
+      .timeline-item:nth-child(even) .timeline-content{@media(min-width:768px){margin-left:3rem}}
+      .timeline-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem}
+      .timeline-role{font-family:'Clash Display';font-size:1.25rem;font-weight:600}
+      .timeline-period{background:var(--ink-800);padding:.25rem .75rem;border-radius:9999px;font-family:'JetBrains Mono';font-size:.75rem;color:var(--ink-300)}
+      .timeline-co{margin-top:.25rem;display:flex;align-items:center;gap:.5rem;font-size:.875rem;color:var(--accent-400)}
+      .timeline-co span{color:var(--ink-400)}
+      .timeline-desc{margin-top:1rem;font-size:.875rem;line-height:1.6;color:var(--ink-300)}
+      .timeline-hl{margin-top:1rem;list-style:none;display:flex;flex-direction:column;gap:.5rem}
+      .timeline-hl li{display:flex;align-items:flex-start;gap:.5rem;font-size:.875rem;color:var(--ink-400)}
+      .timeline-hl li::before{content:"";margin-top:.375rem;height:.375rem;width:.375rem;flex-shrink:0;border-radius:9999px;background:var(--accent-500)}
+      .timeline-node{position:absolute;left:0;top:1.5rem;transform:translateX(-50%)}
+      @media(min-width:768px){.timeline-node{left:50%}}
+      .timeline-node span{display:grid;place-items:center;height:1rem;width:1rem;border-radius:9999px;border:2px solid var(--accent-500);background:var(--ink-950)}
+      .timeline-node span::after{content:"";height:.375rem;width:.375rem;border-radius9999px;background:var(--accent-500)}
+
+      /* about */
+      .about-grid{display:grid;gap:3rem}
+      @media(min-width:1024px){.about-grid{grid-template-columns:repeat(12,1fr)}}
+      .about-left{@media(min-width:1024px){grid-column:span 5}}
+      .about-right{@media(min-width:1024px){grid-column:span 7}}
+      .about-desc{margin-top:1.5rem;font-size:1.125rem;line-height:1.7;color:var(--ink-300)}
+      .about-desc + .about-desc{margin-top:1rem;color:var(--ink-400);font-size:1rem}
+      .about-card{border:1px solid var(--ink-800);background:rgba(12,14,20,.4);padding:2rem;border-radius:1.5rem}
+      .about-card-label{font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-400)}
+      .skills{margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:.75rem}
+      .skill{border:1px solid var(--ink-700);background:rgba(57,63,79,.4);padding:.5rem 1rem;border-radius:9999px;font-size:.875rem;color:var(--ink-200);transition:all .2s;cursor:default}
+      .skill:hover{border-color:rgba(249,115,22,.5);color:#fff}
+
+      /* contact */
+      .contact{position:relative;overflow:hidden;padding-top:7rem;padding-bottom:7rem}
+      .contact-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}
+      .contact-blob-1{position:absolute;left:25%;top:0;height:20rem;width:20rem;border-radius:9999px;background:rgba(249,115,22,.2);filter:blur(64px);animation:blob 18s ease-in-out infinite}
+      .contact-blob-2{position:absolute;right:25%;bottom:0;height:20rem;width:20rem;border-radius:9999px;background:rgba(16,185,129,.1);filter:blur(64px);animation:blob 18s ease-in-out infinite;animation-delay:6s}
+      .contact-wrap{max-width:42rem;margin:0 auto;padding:0 1.5rem;text-align:center}
+      @media(min-width:1024px){.contact-wrap{padding:0 2.5rem}}
+      .contact-eyebrow{justify-content:center}
+      .contact-eyebrow::after{content:"";height:1px;width:2rem;background:var(--accent-400)}
+      .contact h2{margin-top:1.5rem}
+      .contact-desc{margin:1.5rem auto 0;max-width:36rem;font-size:1.125rem;color:var(--ink-300)}
+      .contact-email{margin-top:2.5rem;display:inline-flex;align-items:center;gap:.75rem;font-size:1.5rem;font-weight:500;color:#fff;text-decoration:none}
+      @media(min-width:640px){.contact-email{font-size:1.875rem}}
+      .contact-email svg{height:1.5rem;width:1.5rem;color:var(--accent-400);transition:transform .2s}
+      .contact-email:hover svg{transform:scale(1.1)}
+      .contact-email span{border-bottom:1px solid transparent;transition:border-color .2s}
+      .contact-email:hover span{border-color:var(--accent-400)}
+      .contact-socials{margin-top:3rem;display:flex;align-items:center;justify-content:center;gap:1rem}
+      .social{display:grid;place-items:center;height:3rem;width:3rem;border-radius:9999px;border:1px solid var(--ink-700);color:var(--ink-300);transition:all .2s;text-decoration:none}
+      .social:hover{border-color:var(--accent-500);background:var(--accent-500);color:var(--ink-950)}
+      .social svg{height:1.25rem;width:1.25rem}
+
+      /* footer */
+      .footer{border-top:1px solid rgba(57,63,79,.6);padding:2.5rem 0}
+      .footer-inner{max-width:80rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:1rem}
+      @media(min-width:640px){.footer-inner{flex-direction:row;padding:0 2.5rem}}
+      .footer-left{display:flex;align-items:center;gap:.5rem;font-size:.875rem;color:var(--ink-400)}
+      .footer-mark{display:grid;place-items:center;height:1.75rem;width:1.75rem;border-radius:.5rem;background:var(--accent-500);font-family:'Clash Display';font-size:.875rem;font-weight:700;color:var(--ink-950)}
+      .footer-right{font-size:.75rem;color:var(--ink-500)}
+
+      .magnetic{transition:transform .3s ease-out}
+    </style>
+  </head>
+  <body>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+    <!-- NAV -->
+    <header class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#top" class="logo">
+          <span class="logo-mark">D</span>
+          <span class="logo-text"></span>
+        </a>
+        <nav class="nav-links">
+          <a href="#work">Work</a>
+          <a href="#process">Process</a>
+          <a href="#experience">Experience</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href="https://drive.google.com/file/d/1agusCO0QYAkIQuGtzk0-hcxZcE_vwlxT/view?usp=sharing" class="btn btn-primary nav-cta magnetic" target="_blank" rel="noopener noreferrer">
+          Resume
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 7h10v10"/>
+            <path d="M7 17 17 7"/>
+          </svg>
+        </a>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+          <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+          <a href="#work">Work</a>
+          <a href="#process">Process</a>
+          <a href="#experience">Experience</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="#contact" class="btn btn-primary">Let's talk
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="hero-bg">
+          <video autoplay loop muted playsinline class="hero-video">
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+          <h2 class="hero-greeting animate-fade-up"><span class="wave-hand">👋</span> Hi, I am</h2>
+          <h1 class="hero-title animate-fade-up" style="animation-delay:80ms">Dinakar Satya</h1>
+          <h3 class="hero-subtitle animate-fade-up" style="animation-delay:120ms">Sr. UX/UI designer at Valentis</h3>
+          <p class="hero-desc animate-fade-up" style="animation-delay:160ms">
+            5+ years of experience, leading design, mentoring budding designers & building impactful B2B & B2C solutions across industries
+          </p>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee">
+        <div class="marquee-track" id="marquee"></div>
+      </div>
+
+      <!-- WORK -->
+      <section class="section" id="work">
+        <div class="container">
+          <div class="work-head reveal">
+            <div>
+              <div class="eyebrow">Selected Work</div>
+              <h2 style="margin-top:1rem">Projects with measurable impact</h2>
+            </div>
+            <!-- <p>A curated set of products where design decisions moved the numbers that matter.</p> -->
+          </div>
+          <div class="work-grid">
+            <div class="work-list" id="workList"></div>
+            <div class="work-preview">
+              <div class="work-preview-sticky">
+                <div class="work-card" id="workCard"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="section" id="process">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">How I Work</div>
+            <h2 style="margin-top:1rem;max-width:42rem">A process built for clarity, not ceremony</h2>
+          </div>
+          <div class="process-grid" id="processGrid"></div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">Career</div>
+            <h2 style="margin-top:1rem;max-width:42rem">Experience that shaped the craft</h2>
+          </div>
+          <div class="timeline" id="timeline">
+            <div class="timeline-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="about-grid">
+            <div class="about-left reveal">
+              <div class="eyebrow">About</div>
+              <h2 style="margin-top:1rem">Designer, researcher, systems thinker</h2>
+              
+              <p class="about-desc">
+                Highly skilled UX/UI Designer with over 5 years of experience leading product design, mentoring talent, and building impactful B2B and B2C solutions across diverse industries. Proven track record in transforming complex multi-supplier workflows, mobile applications, and web apps into intuitive, high-converting user experiences—with specialized expertise in the travel and healthcare sectors. Combining a technical foundation in Computer Science and VFX with mastery in modern design systems and tools like Figma and Framer, I focus on delivering user-centered, scalable digital products that seamlessly align user needs with business impact.
+              </p>
+            </div>
+            <div class="about-right reveal" style="transition-delay:120ms">
+              <div class="about-card">
+                <div class="about-card-label">Core skills</div>
+                <div class="skills" id="skills"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="contact" id="contact">
+        <div class="contact-bg">
+          <div class="contact-blob-1"></div>
+          <div class="contact-blob-2"></div>
+        </div>
+        <div class="contact-wrap">
+          <div class="reveal">
+            <div class="eyebrow contact-eyebrow">Contact</div>
+            <h2 style="margin-top:1.5rem">I’m just a message away</h2>
+            <p class="contact-desc">
+              If you’re building a design team & think I’d be a great fit, I would be happy to connect
+            </p>
+          </div>
+          <div class="reveal" style="transition-delay:120ms">
+            <a href="mailto:kolaparthidinakar@gmail.com" class="contact-email">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span>kolaparthidinakar@gmail.com</span>
+            </a>
+          </div>
+          <div class="reveal" style="transition-delay:200ms">
+            <div class="contact-socials">
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/feed/" class="social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/dinakar_ui?igsh=dnBlYmV2ajd6Zjlq&utm_source=qr" class="social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <!-- Behance -->
+              <!-- <a href="https://www.behance.net/dinakaruiux?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAS3XutleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadTkR4H4WJgH1tY-1J4WC6RFnh58H7ZewAqwSF-PMA6p__QqN3sZ0Nm5J4QUg_aem_m0b3dr_AlZO1LrxKkMri5Q" class="social" aria-label="Behance" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12H5V9h4a1.5 1.5 0 0 1 0 3zM9 18H5v-3h4a1.5 1.5 0 0 1 0 3z"/><path d="M2 5v14c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2zm11 11h6v1h-6v-1zm-4 1a2.5 2.5 0 0 1-2.5 2.5H4v-13h2.5A2.5 2.5 0 0 1 9 9v1a2.3 2.3 0 0 1-1.5 2.1A2.5 2.5 0 0 1 9 15v2zm9-5.5a2.5 2.5 0 0 0-2.5-2.5h-2v5h2a2.5 2.5 0 0 0 2.5-2.5z"/></svg>
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-mark">D</span>
+          Dinakar Satya · UI/UX Designer
+        </div>
+        <div class="footer-right">Designed & built with A · © <span id="year"></span></div>
+      </div>
+    </footer>
+
+    <script>
+      /* ---------- data ---------- */
+      const TOOLS = ['Figma','Framer','Adobe XD','Illustrator','Photoshop','After Effect','Jitter ','FigJam'];
+      const PROJECTS = [
+        {id:'01',name:'Fly Booking',category:'Travel · Case Study',year:'',blurb:'Your ultimate flight booking companion. A comprehensive case study on reimagining the flight booking experience.',tags:['UX/UI Design','Product Design','Case Study'],image:'pexels-photo-7821714 1.jpg',url:'https://medium.com/@kolaparthidinakar/fly-booking-your-ultimate-flight-booking-companion-b6bcd23e0dfe'},
+        {id:'02',name:'Simple Skincare',category:'E-commerce · UI Redesign',year:'',blurb:'Homepage retailer modal redesign to improve user flow and conversion rates for skincare products.',tags:['UI Design','E-commerce','Web Design'],image:'pexels-photo-7821714 3.jpg',url:'https://medium.com/@kolaparthidinakar/simple-skincare-homepage-retailer-modal-redesign-acc286e08b75?source=user_profile_page---------1-------------7e8a220e77cf----------------------'},
+        {id:'03',name:'AI Wallpaper Generator',category:'AI · Mobile/Web App',year:'',blurb:'Prompt & Image Customization tool interface design, enabling users to generate and tweak AI wallpapers.',tags:['AI','Interface Design','Prototyping'],image:'pexels-photo-7821714 2.jpg',url:'https://medium.com/@kolaparthidinakar/ai-wallpaper-generator-prompt-image-customization-8b32e586701b'}
+      ];
+      const PROCESS = [
+        {step:'01',title:'Discover',desc:'Stakeholder interviews, competitive audits, and user research to find the real problem worth solving.',icon:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>'},
+        {step:'02',title:'Define',desc:'Synthesize findings into personas, journeys, and a sharp problem statement the whole team rallies behind.',icon:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>'},
+        {step:'03',title:'Design',desc:'Wireframes, high-fidelity mockups, and interactive prototypes — validated early and often with real users.',icon:'<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H18v4h-8v14H5z"/><path d="M19 5v14"/>'},
+        {step:'04',title:'Deliver',desc:'Hand off a documented, accessible design system and partner with engineering through launch and beyond.',icon:'<path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/><path d="M12 3 5 12l7 9 7-9z"/>'},
+      ];
+      const EXPERIENCE = [
+        {
+          role: 'UX/UI Designer',
+          company: 'Valentis Technologies',
+          period: 'NOV \'24 - Present',
+          location: '',
+          desc: 'Led product design for a B2B travel booking & agent platform, simplifying complex multi-supplier corporate travel workflows into intuitive user experiences.',
+          highlights: [
+            'Designed and shipped high-conversion features, including a Smart Tour Package Screener, AutoBook, and an Agent Help Desk',
+            'Revamped the internal dashboard to automate operations'
+          ]
+        },
+        {
+          role: 'UX/UI Designer',
+          company: 'Provab Technosoft',
+          period: 'Jun \'21 - Oct \'24',
+          location: '',
+          desc: 'Design across B2B travel booking platforms, B2C mobile travel applications, and healthcare web apps, transforming complex cross-industry workflows into intuitive user experiences.',
+          highlights: [
+            'Designed and shipped high-conversion travel features, including a Smart Tour Package Screener, AutoBook engine, and an Agent Help Desk',
+            'Revamped internal dashboards to automate operations',
+            'Spearheaded end-to-end product design for a medical web application and retail skincare/healthcare interfaces'
+          ]
+        },
+        {
+          role: 'UI Designer',
+          company: 'CloudNext',
+          period: 'Dec \'20 - Jun \'21',
+          location: '',
+          desc: 'Spearheaded the end-to-end product design for a complex mobile healthcare application, specializing in patient-centric features.',
+          highlights: [
+            'Designed features for doctor discovery, seamless appointment booking, and real-time doctor tracking'
+          ]
+        },
+        {
+          role: 'Imaging Associate',
+          company: 'Shreejan Associates',
+          period: 'Mar \'19 - Apr \'20',
+          location: '',
+          desc: 'Managed high-volume digital asset production for apparel categories, specializing in precise image cropping, color correction, and visual merchandising.',
+          highlights: [
+            'Curated harmonious color combinations for product displays',
+            'Maintained strict quality-assurance standards to ensure a seamless, high-converting customer experience'
+          ]
+        }
+      ];
+      const SKILLS = ['Figma','Prototyping','Design Systems','User Research','Accessibility','UX Writing','Information Architecture','Service Design','Data Visualization','Motion Design'];
+
+      /* ---------- render ---------- */
+      const $ = (s)=>document.querySelector(s);
+      const el = (html)=>{const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild;};
+
+      // marquee
+      const marquee = $('#marquee');
+      const marqueeItems = [...TOOLS,...TOOLS].map((t)=>`<div class="marquee-item"><span>${t}</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/></svg></div>`).join('');
+      marquee.innerHTML = marqueeItems;
+
+      // work list
+      const workList = $('#workList');
+      PROJECTS.forEach((p,i)=>{
+        const btn = el(`<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="work-item ${i===0?'active':''}" data-i="${i}">
+          <div class="work-item-row">
+            <div style="display:flex;align-items:baseline;gap:1rem">
+              <span class="work-item-id">${p.id}</span>
+              <span class="work-item-name">${p.name}</span>
+            </div>
+            <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </div>
+          <div class="work-detail"><div class="work-detail-inner">
+            <p>${p.blurb}</p>
+            <div class="work-tags">${p.tags.map(t=>`<span class="work-tag">${t}</span>`).join('')}</div>
+          </div></div>
+          <div class="work-meta">${p.category} · ${p.year}</div>
+        </a>`);
+        workList.appendChild(btn);
+      });
+
+      // work card
+      const workCard = $('#workCard');
+      function renderWorkCard(i){
+        const p = PROJECTS[i];
+        workCard.innerHTML = `
+          <img class="work-card-img" src="${p.image}" alt="${p.name}" />
+          <div class="work-card-overlay"></div>
+          <div class="work-card-info">
+            <div>
+              <div class="work-card-cat">${p.category}</div>
+              <div class="work-card-name">${p.name}</div>
+            </div>
+            <span class="work-card-year">${p.year}</span>
+          </div>`;
+      }
+      renderWorkCard(0);
+
+      // Optimized mouse interaction using mouseenter for smoother preview switching
+      document.querySelectorAll('.work-item').forEach((btn) => {
+        btn.addEventListener('mouseenter', (e) => {
+          const i = +btn.dataset.i;
+          document.querySelectorAll('.work-item').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderWorkCard(i);
+        });
+      });
+
+      // process
+      const processGrid = $('#processGrid');
+      PROCESS.forEach((p,i)=>{
+        const card = el(`<div class="process-card reveal" style="transition-delay:${i*100}ms">
+          <div class="process-num">${p.step}</div>
+          <div class="process-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p.icon}</svg></div>
+          h3 class="process-title">${p.title}</h3>
+          <p class="process-desc">${p.desc}</p>
+        </div>`);
+        processGrid.appendChild(card);
+      });
+
+      // timeline
+      const timeline = $('#timeline');
+      EXPERIENCE.forEach((e,i)=>{
+        const item = el(`<div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-top">
+              <h3 class="timeline-role">${e.role}</h3>
+              <span class="timeline-period">${e.period}</span>
+            </div>
+            <div class="timeline-co">${e.company} · <span>${e.location}</span></div>
+            <p class="timeline-desc">${e.desc}</p>
+            <ul class="timeline-hl">${e.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>
+          </div>
+          <div class="timeline-node"><span></span></div>
+        </div>`);
+        timeline.appendChild(item);
+      });
+
+      // skills
+      $('#skills').innerHTML = SKILLS.map(s=>`<span class="skill">${s}</span>`).join('');
+
+      // year
+      $('#year').textContent = new Date().getFullYear();
+
+      /* ---------- interactions ---------- */
+      const nav = $('#nav');
+      const progressBar = $('#progressBar');
+      function onScroll(){
+        nav.classList.toggle('scrolled', window.scrollY > 24);
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        progressBar.style.width = (max>0 ? (h.scrollTop/max)*100 : 0) + '%';
+      }
+      onScroll();
+      window.addEventListener('scroll', onScroll, {passive:true});
+
+      const menuBtn = $('#menuBtn');
+      const mobileMenu = $('#mobileMenu');
+      const menuIcon = $('#menuIcon');
+      let menuOpen = false;
+      menuBtn.addEventListener('click',()=>{
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('open', menuOpen);
+        menuIcon.innerHTML = menuOpen
+          ? '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
+          : '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>';
+      });
+      mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+        menuOpen=false;mobileMenu.classList.remove('open');
+        menuIcon.innerHTML='<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>';
+      }));
+
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){e.target.classList.add('shown');io.unobserve(e.target);}
+        });
+      },{threshold:0.15});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+      document.querySelectorAll('.magnetic').forEach(btn=>{
+        btn.addEventListener('mousemove',(e)=>{
+          const r = btn.getBoundingClientRect();
+          const x = e.clientX - r.left - r.width/2;
+          const y = e.clientY - r.top - r.height/2;
+          btn.style.transform = `translate(${x*0.25}px, ${y*0.35}px)`;
+        });
+        btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+      });
+    </script>
+  </body>
+</html>
